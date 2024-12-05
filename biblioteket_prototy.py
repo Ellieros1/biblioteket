@@ -28,16 +28,19 @@ class Bibliotek:
     """ Bibliotek är en klass som representerar en bibliotekskatalog. Ett objekt
     ur klassen har en lista över böcker som attribut, samt metoder för att
     modifiera katalogen. """
-    def __init__(self, bookList):
-        self.books = bookList
+    def __init__(self, boklista=[]): #sätter ett bibliotek ojekt med en lista av böcker som en standard
+        self.böcker = boklista
 
     # Sparar hela bibliotekskatalogen i en fil.
-    def spara(self, filename):
+    def spara(self, filename="Programmering/Författare_böckerpy.txt"):
+        with open(filename, "w") as f: #öppnar filen med namnet "filename" i skrivläge och tilldelar filobjektet "f"
+        for bok in self.böcker: #loppar igenom varje bok i listan "self.böcker"
+            f.write(f"{bok.författare},{bok.titel},{bok.utlånad}\n") #Skriver boken författare, titel och om den är utlånad eller inte (alla är återskillda med kommatecken)
         return
 
     # Söker på en titel.
     def hittaTitel(self, titel):
-        return
+        return []
 
     # Söker på en författare.
     def hittaFörfattare(self, författare):
@@ -85,33 +88,33 @@ def main():
         menyVal = input("-> ")
 
         if menyVal == "1":
-           str(titel = input("ange titel:"))
-           resultat = Bibliotek.hitta_titel(titel)
+           str(titel = input("ange titel: ")) #ber användaren att skriva in titel
+           resultat = Bibliotek.hitta_titel(titel) 
            for bok in resultat:
-               print(bok)
+               print(bok) #Skriver ut boken
         elif menyVal == "2":
-            str(författare = input("ange författare:"))
+            str(författare = input("ange författare: ")) #ber användaren att skriva in författaren
             resultat = Bibliotek.hitta_författare(författare)
-            for bok in resultat: print(bok)
+            for bok in resultat: print(bok) #Skriver ut boken
         elif menyVal == "3":
-            str(title = input("ange boken du vill låna:"))
-            print(Bibliotek.låna_bok(titel))
+            str(title = input("ange boken du vill låna: ")) #ber användaren att skriva in  boken som den vill låna
+            print(Bibliotek.låna_bok(titel)) 
         elif menyVal == "4":
-            str(titel= input("ange titel på boken du vill återlämna:"))
-            print(Bibliotek.lämna_tillbaka(titel))
+            str(titel= input("ange titel på boken du vill återlämna: ")) #Sber användaren att skriva in boken den vill återlämna
+            print(Bibliotek.lämna_tillbaka(titel)) 
         elif menyVal == "5":
-            författare = input("Ange författaren: ") 
+            författare = input("Ange författaren: ") #ber användaren att skriva in skriva in författren
             titel = input("Ange titeln på den nya boken: ")
             print(Bibliotek.lägg_till_bok(författare, titel))
         elif menyVal == "6":
-            titel = input("Ange titeln på boken du vill ta bort: ") 
+            titel = input("Ange titeln på boken du vill ta bort: ")  #ber användaren att skriva in boken den vill ta bort
             print(Bibliotek.ta_bort_bok(titel))
         elif menyVal == "7":
-            böcker = Bibliotek.listaBöcker()
+            böcker = Bibliotek.listaBöcker() #
             for bok in böcker:
                 print(bok)
         elif menyVal == "8":
-            print("Avslutar programmet")
+            print("Avslutar programmet") #Skriver ut "Avslutar programet"
 
 print(
 """
