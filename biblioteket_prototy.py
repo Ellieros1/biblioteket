@@ -22,7 +22,7 @@ class Bok:
 
     # Strängrepresentation av objektet.
     def __str__(self):
-        return f"Boken {self.titel}, skriven av {self.författare}."
+        return f"Boken {self.titel}, skriven av {self.författare}."#Variabeln "f" används för att skapa strängar med variabler och uttryck på ett mycket enklare sätt och som gör koden mer läsbar alltså mindre sökig och det ser bättre ut. Utan f strängar så används t.ex "+" för att sammanfoga flera strängar.
 
 class Bibliotek:
     """ Bibliotek är en klass som representerar en bibliotekskatalog. Ett objekt
@@ -34,21 +34,24 @@ class Bibliotek:
     # Sparar hela bibliotekskatalogen i en fil.
     def spara(self, filename="Programmering/Författare_böckerpy.txt"):
         with open(filename, "w") as f: #öppnar filen med namnet "filename" i skrivläge och tilldelar filobjektet "f"
-        for bok in self.böcker: #loppar igenom varje bok i listan "self.böcker"
+            for bok in self.böcker: #loppar igenom varje bok i listan "self.böcker"
             f.write(f"{bok.författare},{bok.titel},{bok.utlånad}\n") #Skriver boken författare, titel och om den är utlånad eller inte (alla är återskillda med kommatecken)
         return
 
     # Söker på en titel.
     def hittaTitel(self, titel):
-        return []
+        return [bok for bok in self.böcker if bok.titel.lower() == titel.lower()] # skapar en lista med böckerna från boklisntan (self.böcker). bok for bok in self.böcker går igenom varje bok i bibliotekts boklista. if bok.titel.lower() == titel.lower() Kontorllerar om bokens titel i små bokstäver är lika med de angiva titel i små bokstäver också.
 
     # Söker på en författare.
     def hittaFörfattare(self, författare):
-        return
+        return [bok for bok in self.böcker if bok.författare.lower() == författare.lower()] #Skapar också en lista med böcker från bokslistan fast den filterar baserat på om deras författare matchar den författaren(författre) Istället för titel. bok for bok in self.böcker går igenom varje bok i bibliotekts boklista. if bok.författare.lower() == författare.lower() Kontrollerar istället om bökens författare i små bokstäven är lika med den angivna författaren i små bokstäver.
 
     # Lånar en bok.
     def lånaBok(self, bok):
-        return
+        for bok in self.böcker: #Går igenom varje bok i boklistan
+            if bok.titel.lower() == titel.lower() and not bok.utlånad: #Kontorlerar ifall bokens titel machar angivna titeln(ingrorerar stor och liten bokstav) om boken inte redan är utlånad.
+                bok.utlånad = True return f"Boken '{titel}' är nu utlånad." #Retunerar att boken är nu utlånad.
+                return f"Boken '{titel}' finns inte eller är redan utlånad." #Retunerar att boken inte finns eller om den redan är utlånad.
 
     # Återlämnar en bok.
     def lämnaTillbaka(self, bok):
