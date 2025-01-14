@@ -8,29 +8,38 @@ Programmet lagrar böckerna i en fil med namnet "bibliotek.txt" mellan körninga
 """
 # ------------------------- Biblioteksimportering ----------------------------- #
 import random as rand
-
+import os
 # ---------------------------- Klassdefinitioner ------------------------------ #
 
 class Bok:
     """ Bok är en klass som representerar en bok i biblioteket. Varje objekt
     som skapas ur klassen har en titel, författare och en variabel som håller
     reda på om boken är utlånad eller inte. """
-    def __init__(self, författare, titel):
+    def __init__(self, författare, titel, utlånad=0):
         self.titel = titel
         self.författare = författare
-        self.utlånad = False
+        self.utlånad = utlånad
 
     # Strängrepresentation av objektet.
     def __str__(self):
-        return f"Boken {self.titel}, skriven av {self.författare}."#Variabeln "f" används för att skapa strängar med variabler och uttryck på ett mycket enklare sätt och som gör koden mer läsbar alltså mindre sökig och det ser bättre ut. Utan f strängar så används t.ex "+" för att sammanfoga flera strängar.
+        return f"Boken {self.titel}, som är skriven av {self.författare}, utlånad: {'ja' if self.utlånad else 'nej'}."#Variabeln "f" används för att skapa strängar med variabler och uttryck på ett mycket enklare sätt och som gör koden mer läsbar alltså mindre sökig och det ser bättre ut. Utan f strängar så används t.ex "+" för att sammanfoga flera strängar.
 
 class Bibliotek:
     """ Bibliotek är en klass som representerar en bibliotekskatalog. Ett objekt
     ur klassen har en lista över böcker som attribut, samt metoder för att
     modifiera katalogen. """
-    def __init__(self, boklista=[]): #sätter ett bibliotek ojekt med en lista av böcker som en standard
-        self.böcker = boklista
+    def __init__(self, filename=""): #sätter ett bibliotek ojekt med en lista av böcker som en standard
+        self.filename = filename
+        self.böcker = self.läser_från_filen()
 
+    def läser_från_filen(self):
+        böcker = []
+        if os.path.exists(self.filename):#tittar om filen finns
+            with open(self.filename, "r") as fil:#öppnar och läser."r"  betyder read.
+                for rad in fil: #för varje rad i filen
+                    data= rad.strip().split(",")#delar med ett varje gång","
+
+             
     # Sparar hela bibliotekskatalogen i en fil.
     def spara(self, filename="Programmering/Författare_böckerpy.txt"):
         with open(filename, "w") as f: #öppnar filen med namnet "filename" i skrivläge och tilldelar filobjektet "f"
@@ -48,10 +57,12 @@ class Bibliotek:
 
     # Lånar en bok.
     def lånaBok(self, bok):
-        for bok in self.böcker: #Går igenom varje bok i boklistan
-            if bok.titel.lower() == titel.lower() and not bok.utlånad: #Kontorlerar ifall bokens titel machar angivna titeln(ingrorerar stor och liten bokstav) om boken inte redan är utlånad.
-                bok.utlånad = True return f"Boken '{titel}' är nu utlånad." #Retunerar att boken är nu utlånad.
-                return f"Boken '{titel}' finns inte eller är redan utlånad." #Retunerar att boken inte finns eller om den redan är utlånad.
+        return
+        #for bok in self.böcker: #Går igenom varje bok i boklistan
+           # if bok.titel.lower() == titel.lower() and not bok.utlånad: #Kontorlerar ifall bokens titel machar angivna titeln(ingrorerar stor och liten bokstav) om boken inte redan är utlånad.
+            #    bok.utlånad = True 
+            #    return f"Boken '{titel}' är nu utlånad." #Retunerar att boken är nu utlånad.
+            #    return f"Boken '{titel}' finns inte eller är redan utlånad." #Retunerar att boken inte finns eller om den redan är utlånad.
 
     # Återlämnar en bok.
     def lämnaTillbaka(self, bok):
